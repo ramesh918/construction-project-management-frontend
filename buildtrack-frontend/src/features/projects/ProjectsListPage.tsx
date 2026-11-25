@@ -11,6 +11,8 @@ import { Badge } from '../../shared/ui/Badge';
 import { Field } from '../../shared/ui/Field';
 import { Table, TableBody, TableHead } from '../../shared/ui/Table';
 import type { Project, ProjectStatus } from '../../shared/types/project';
+import {EditProjectModal} from './EditProjectModal';
+import {DeleteProjectModal} from './DeleteProjectModal';
 
 const STATUS_OPTIONS: ProjectStatus[] = ['Planning', 'Active', 'On Hold', 'Completed'];
 
@@ -54,6 +56,36 @@ function TableSkeleton() {
   );
 }
 
+
+function PencilIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path
+        d="M11.3 2.3a1 1 0 0 1 1.4 0l1 1a1 1 0 0 1 0 1.4L6 12.4l-3 .6.6-3 7.7-7.7Z"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function TrashIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path
+        d="M3 4.5h10M6.5 4.5v-1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1M4.5 4.5l.5 8a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1l.5-8"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+
+
 export function ProjectsListPage() {
   const dispatch = useDispatch();
   const statusFilter = useSelector((s: RootState) => s.ui.projectStatusFilter);
@@ -62,6 +94,9 @@ export function ProjectsListPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState(EMPTY_FORM);
   const createProject = useCreateProject();
+
+  const [editProject, setEditProject] = useState<Project | null>(null);
+  const [deleteProject, setDeleteProject] = useState<Project | null>(null);
 
   function handleCreate(e: FormEvent) {
     e.preventDefault();
@@ -156,6 +191,7 @@ export function ProjectsListPage() {
                 <th className="px-4 py-3">End</th>
                 <th className="px-4 py-3 text-right">Budget</th>
                 <th className="px-4 py-3">Status</th>
+                <th className="px-4 py-3 text-right">Actions</th>
               </tr>
             </TableHead>
             <TableBody>
@@ -169,12 +205,38 @@ export function ProjectsListPage() {
                   <td className="px-4 py-3">
                     <Badge tone={STATUS_TONE[p.status]}>{p.status}</Badge>
                   </td>
+                  <td className="px-4 py-3 text-right">
+                    <Button
+                      variant="secondary"
+                      onClick={() => setEditProject(p)}
+                      className="mr-2"
+                    >
+                      <PencilIcon />
+                    </Button>
+                    <Button variant="secondary" onClick={() => setDeleteProject(p)}>
+                      <TrashIcon />
+                    </Button>
+                  </td>
                 </tr>
               ))}
             </TableBody>
           </Table>
         )}
       </div>
+
+      {editProject && (
+        <EditProjectModal
+          project={editProject}
+          onClose={() => setEditProject(null)}
+        />
+      )}
+
+      {deleteProject && (
+        <DeleteProjectModal
+          project={deleteProject}
+          onClose={() => setDeleteProject(null)}
+        />
+      )}
 
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title="Create Project">
         <form onSubmit={handleCreate} className="space-y-4">
