@@ -6,6 +6,7 @@ import { LoginPage } from './features/auth/LoginPage'
 import { WelcomePage } from './features/auth/WelcomePage'
 import { AccessDeniedPage } from './features/auth/AccessDeniedPage'
 import { ProjectsListPage } from './features/projects/ProjectsListPage'
+import ProjectSummary  from './features/projects/ProjectSummary'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               }
             />
             <Route path="/projects" element={<ProjectsListPage />} />
+            <Route path="/projects/:id" element={<ProjectSummary />} />
           </Route>
         </Route>
       </Routes>

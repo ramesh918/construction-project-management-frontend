@@ -13,6 +13,7 @@ import { Table, TableBody, TableHead } from '../../shared/ui/Table';
 import type { Project, ProjectStatus } from '../../shared/types/project';
 import {EditProjectModal} from './EditProjectModal';
 import {DeleteProjectModal} from './DeleteProjectModal';
+import {Link} from 'react-router-dom';
 
 const STATUS_OPTIONS: ProjectStatus[] = ['Planning', 'Active', 'On Hold', 'Completed'];
 
@@ -197,7 +198,11 @@ export function ProjectsListPage() {
             <TableBody>
               {projects.map(p => (
                 <tr key={p.id} className="transition-colors hover:bg-slate-50">
-                  <td className="px-4 py-3 font-medium text-slate-900">{p.name}</td>
+                  <td className="px-4 py-3 font-medium text-slate-900">
+                    <Link to={`/projects/${p.id}`} className="text-blue-600 hover:underline">
+                      {p.name}
+                    </Link>
+                  </td>
                   <td className="px-4 py-3 text-slate-600">{p.location}</td>
                   <td className="px-4 py-3 text-slate-600">{p.startDate}</td>
                   <td className="px-4 py-3 text-slate-600">{p.endDate}</td>
