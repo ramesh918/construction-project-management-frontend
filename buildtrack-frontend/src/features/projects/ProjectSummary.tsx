@@ -30,20 +30,9 @@ function ProjectSummary() {
       <p className="text-gray-600 mb-1">Budget: ${project.budget.toLocaleString()}</p>
       <p className="text-gray-600 mb-1">Status: {project.status}</p>
       {project.description && <p className="text-gray-600 mb-1">Description: {project.description}</p>}
-      {project.documents && project.documents.length > 0 && (
-        <div className="mt-2">
-          <h3 className="font-semibold">Documents:</h3>
-          <ul className="list-disc list-inside">
-            {project.documents.map((doc) => (
-              <li key={doc.key}>
-                <a href={`/api/projects/${project.id}/documents/${doc.key}`} target="_blank" rel="noopener noreferrer">
-                  {doc.fileName}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+     <Link to={`/projects/${project.id}/documents`} className="mt-2 inline-block text-blue-500 hover:underline">
+        View Documents
+      </Link>
     </div>
 
     {project.costSummary && (

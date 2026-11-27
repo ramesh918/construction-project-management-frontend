@@ -14,6 +14,7 @@ import type { Project, ProjectStatus } from '../../shared/types/project';
 import {EditProjectModal} from './EditProjectModal';
 import {DeleteProjectModal} from './DeleteProjectModal';
 import {Link} from 'react-router-dom';
+import CheckBoxes from './CheckBoxes';
 
 const STATUS_OPTIONS: ProjectStatus[] = ['Planning', 'Active', 'On Hold', 'Completed'];
 
@@ -130,6 +131,7 @@ export function ProjectsListPage() {
 
   return (
     <div className="space-y-6">
+      <CheckBoxes />
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold text-slate-900">Projects</h1>

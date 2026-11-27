@@ -8,6 +8,7 @@ export interface ProjectDocument {
   category: ProjectDocumentCategory;
   contentType: string;
   uploadedAt: string;
+  viewUrl?: string;
 }
 
 export interface Project {
