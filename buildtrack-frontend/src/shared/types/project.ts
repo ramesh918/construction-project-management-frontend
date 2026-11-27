@@ -8,6 +8,7 @@ export interface ProjectDocument {
   category: ProjectDocumentCategory;
   contentType: string;
   uploadedAt: string;
+  viewUrl?: string;
 }
 
 export interface Project {
@@ -22,6 +23,7 @@ export interface Project {
   documents?: ProjectDocument[];
   createdAt: string;
   updatedAt: string;
+  costSummary?: ProjectCostSumamry
 }
 
 export interface CreateProjectInput {
@@ -31,4 +33,17 @@ export interface CreateProjectInput {
   endDate: string;
   budget: number;
   description?: string;
+  
+}
+
+export interface ProjectCostSumamry {
+  projectId: string;
+  budget: number;
+  materialCost: number;
+  labourCost: number;
+  otherCost: number;
+  totalCost: number;
+  remaining: number;
+  isOverBudget: boolean;
+  updatedAt: string;
 }

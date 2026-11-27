@@ -13,6 +13,8 @@ import { Table, TableBody, TableHead } from '../../shared/ui/Table';
 import type { Project, ProjectStatus } from '../../shared/types/project';
 import {EditProjectModal} from './EditProjectModal';
 import {DeleteProjectModal} from './DeleteProjectModal';
+import {Link} from 'react-router-dom';
+import CheckBoxes from './CheckBoxes';
 
 const STATUS_OPTIONS: ProjectStatus[] = ['Planning', 'Active', 'On Hold', 'Completed'];
 
@@ -129,6 +131,7 @@ export function ProjectsListPage() {
 
   return (
     <div className="space-y-6">
+      <CheckBoxes />
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold text-slate-900">Projects</h1>
@@ -197,7 +200,11 @@ export function ProjectsListPage() {
             <TableBody>
               {projects.map(p => (
                 <tr key={p.id} className="transition-colors hover:bg-slate-50">
-                  <td className="px-4 py-3 font-medium text-slate-900">{p.name}</td>
+                  <td className="px-4 py-3 font-medium text-slate-900">
+                    <Link to={`/projects/${p.id}`} className="text-blue-600 hover:underline">
+                      {p.name}
+                    </Link>
+                  </td>
                   <td className="px-4 py-3 text-slate-600">{p.location}</td>
                   <td className="px-4 py-3 text-slate-600">{p.startDate}</td>
                   <td className="px-4 py-3 text-slate-600">{p.endDate}</td>
